@@ -1,0 +1,33 @@
+name: jarchi 
+
+on:
+  workflow_dispatch: # Позволяет запускать сборку вручную кнопкой
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Archi
+      uses: actions/checkout@v4
+      with:
+        submodules: 'true'
+
+    - name: Set up Java 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'maven'
+
+    - name: Build with Maven
+      # Собираем только нужный плагин и его зависимости, чтобы сэкономить время
+      run: |
+        xvfb-run mvn clean package -DskipTests -am -pl com.archimatetool.script
+
+    - name: Upload jArchi Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: jArchi-compiled-jar
+        path: com.archimatetool.script/target/com.archimatetool.script_*.jar
+        if-no-files-found: error
