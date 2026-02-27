@@ -44,6 +44,7 @@
         <module>com.archimatetool.modelimporter.commandline</module>
         <module>com.archimatetool.reports</module>
         <module>com.archimatetool.reports.commandline</module>
+        <module>com.archimatetool.script</module>
         <module>com.archimatetool.templates</module>
         <module>com.archimatetool.widgets</module>
         <module>com.archimatetool.zest</module>
